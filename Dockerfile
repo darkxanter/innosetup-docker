@@ -17,14 +17,15 @@ RUN chmod +x /opt/bin/*
 ENV PATH $PATH:/opt/bin
 
 USER xclient
+ENV INNOSETUP_VERSION 6.2.0
 
 # Install Inno Setup binaries
-RUN curl -SL "http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe" -o is.exe \
+RUN curl -SL "http://files.jrsoftware.org/is/6/innosetup-${INNOSETUP_VERSION}.exe" -o is.exe \
     && wine-x11-run wine is.exe /SP- /VERYSILENT /ALLUSERS /SUPPRESSMSGBOXES \
     && rm is.exe
 
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN addgroup --system xusers \
   && adduser \
